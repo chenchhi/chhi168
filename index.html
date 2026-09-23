@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+
+        /* ផ្នែក Header ខាងលើ */
+        .header {
+            background-color: #e8f0fe;
+            text-align: center;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #1a237e;
+            font-size: 24px;
+        }
+
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* ផ្នែកក្បាលបទនីមួយៗ */
+        h2 {
+            color: #1a237e;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Flex Container សម្រាប់រៀបរូបភាព និង List */
+        .section-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* ទំហំរូបភាព */
+        .image-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-box img {
+            width: 250px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .caption {
+            font-size: 13px;
+            font-style: italic;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* ទម្រង់ List */
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        /* បន្ទាត់ចែក */
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        /* ផ្នែក Footer ខាងក្រោម */
+        .footer {
+            background-color: #e8f8f0;
+            text-align: center;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .footer h3 {
+            margin: 0;
+            color: #1a237e;
+            font-size: 18px;
+        }
+
+        .footer p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Homework Example</h1>
+        <p>HTML Image and Bullet List</p>
+    </div>
+
+    <hr>
+
+    <!-- 1. My Profile Section -->
+    <h2>1. My Profile</h2>
+    <div class="section-container">
+        <div class="image-box">
+            <img src="../Image/cat-1.jpg" alt="My Favorite Cat">
+            <span class="caption">My Favorite Cat</span>
+        </div>
+        <ul>
+            <li><strong>Name:</strong> Dara</li>
+            <li><strong>Age:</strong> 20</li>
+            <li><strong>Gender:</strong> Male</li>
+            <li><strong>Major:</strong> Information Technology</li>
+            <li><strong>Interests:</strong> Coding and Listening to Music</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <!-- 2. My Hobbies Section -->
+    <h2>2. My Hobbies</h2>
+    <div class="section-container">
+        <ul>
+            <li>Playing Football</li>
+            <li>Listening to Music</li>
+            <li>Watching Movies</li>
+            <li>Reading Books</li>
+            <li>Playing Games</li>
+        </ul>
+        <div class="image-box">
+            <img src="../Image/football.jpg" alt="Football">
+            <span class="caption">Football is my favorite hobby</span>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 3. My Favorite Foods Section -->
+    <h2>3. My Favorite Foods</h2>
+    <div class="section-container">
+        <div class="image-box">
+            <img src="../Image/Fried Rice.jpg" alt="Delicious Fried Rice">
+            <span class="caption">Delicious Fried Rice</span>
+        </div>
+        <ul>
+            <li>Fried Rice</li>
+            <li>Pizza</li>
+            <li>Hamburger</li>
+            <li>Noodle Soup</li>
+            <li>Fruits</li>
+        </ul>
+    </div>
+
+    <!-- Footer Section -->
+     <div class="footer">
+        <h3>Thank You!</h3>
+        <p>See you next time!</p>
+    </div>
+
+</body>
+</html>
