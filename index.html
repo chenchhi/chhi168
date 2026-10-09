@@ -1,175 +1,1375 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="km">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework Example</title>
+    <title>សំណួរស្វែងយល់ពីប្រទេសកម្ពុជា - Cambodia Quiz Game</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Khmer Typography (Battambang & Hanuman) -->
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700;900&family=Hanuman:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        khmer: ['Battambang', 'Hanuman', 'sans-serif'],
+                    },
+                    colors: {
+                        cambodia: {
+                            blue: '#032ea1',
+                            red: '#e31b23',
+                            gold: '#f3c300',
+                            dark: '#1a1a2e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            color: #333;
+            font-family: 'Battambang', 'Hanuman', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            min-height: 100vh;
         }
-
-        /* ផ្នែក Header ខាងលើ */
-        .header {
-            background-color: #e8f0fe;
-            text-align: center;
-            padding: 15px;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
             border-radius: 4px;
         }
-
-        .header h1 {
-            margin: 0;
-            color: #1a237e;
-            font-size: 24px;
-        }
-
-        .header p {
-            margin: 5px 0 0 0;
-            font-size: 16px;
-            color: #333;
-        }
-
-        /* ផ្នែកក្បាលបទនីមួយៗ */
-        h2 {
-            color: #1a237e;
-            font-size: 20px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        /* Flex Container សម្រាប់រៀបរូបភាព និង List */
-        .section-container {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 10px;
-        }
-
-        /* ទំហំរូបភាព */
-        .image-box {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .image-box img {
-            width: 250px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        .caption {
-            font-size: 13px;
-            font-style: italic;
-            color: #555;
-            margin-top: 5px;
-        }
-
-        /* ទម្រង់ List */
-        ul {
-            margin: 0;
-            padding-left: 20px;
-            line-height: 1.8;
-        }
-
-        /* បន្ទាត់ចែក */
-        hr {
-            border: none;
-            border-top: 1px solid #ccc;
-            margin: 20px 0;
-        }
-
-        /* ផ្នែក Footer ខាងក្រោម */
-        .footer {
-            background-color: #e8f8f0;
-            text-align: center;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 20px;
-        }
-
-        .footer h3 {
-            margin: 0;
-            color: #1a237e;
-            font-size: 18px;
-        }
-
-        .footer p {
-            margin: 5px 0 0 0;
-            font-size: 14px;
-            color: #555;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
     </style>
 </head>
-<body>
+<body class="text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Header Section -->
-    <div class="header">
-        <h1>Homework Example</h1>
-        <p>HTML Image and Bullet List</p>
-    </div>
-
-    <hr>
-
-    <!-- 1. My Profile Section -->
-    <h2>1. My Profile</h2>
-    <div class="section-container">
-        <div class="image-box">
-            <img src="../Image/cat-1.jpg" alt="My Favorite Cat">
-            <span class="caption">My Favorite Cat</span>
+    <!-- Header -->
+    <header class="bg-cambodia-dark text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-cambodia-red flex items-center justify-center text-cambodia-gold shadow-md font-bold text-lg border-2 border-cambodia-gold">
+                    <i class="fa-solid fa-landmark"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold tracking-wide">ស្វែងយល់ពីប្រទេសកម្ពុជា</h1>
+                    <p class="text-xs text-gray-400">កម្រងសំណួរចំណេះដឹងទូទៅ ៥០ សំណួរ</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div id="highScoreBadge" class="hidden sm:flex items-center space-x-2 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 text-xs text-cambodia-gold">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>ពិន្ទុខ្ពស់បំផុត៖ <strong id="headerHighScore">0</strong></span>
+                </div>
+                <button onclick="app.resetToHome()" class="bg-cambodia-red hover:bg-red-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition shadow flex items-center space-x-1">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="hidden sm:inline">ទំព័រដើម</span>
+                </button>
+            </div>
         </div>
-        <ul>
-            <li><strong>Name:</strong> Dara</li>
-            <li><strong>Age:</strong> 20</li>
-            <li><strong>Gender:</strong> Male</li>
-            <li><strong>Major:</strong> Information Technology</li>
-            <li><strong>Interests:</strong> Coding and Listening to Music</li>
-        </ul>
-    </div>
+    </header>
 
-    <hr>
+    <!-- Main Content Area -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-6">
+        
+        <!-- 1. HOME SCREEN -->
+        <div id="homeScreen" class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 transition-all duration-300">
+            <div class="bg-gradient-to-r from-cambodia-blue via-indigo-900 to-cambodia-red p-8 md:p-12 text-white text-center relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+                    <i class="fa-solid fa-archway"></i>
+                </div>
+                <span class="inline-block bg-cambodia-gold text-cambodia-dark text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 shadow-sm">
+                    កម្រងសំណួរទីតាំង ប្រវត្តិសាស្ត្រ និងវប្បធម៌
+                </span>
+                <h2 class="text-2xl md:text-4xl font-black mb-3 leading-snug">តើអ្នកយល់ដឹងប៉ុណ្ណាអំពីព្រះរាជាណាចក្រកម្ពុជា?</h2>
+                <p class="text-sm md:text-base text-gray-200 max-w-2xl mx-auto font-light">
+                    សាកល្បងចំណេះដឹងរបស់អ្នកជាមួយនឹងសំណួរជ្រើសរើសចម្លើយចំនួន ៥០ ដែលគ្របដណ្តប់លើប្រវត្តិសាស្ត្រ វប្បធម៌ ភូមិសាស្ត្រ រម្មណីយដ្ឋាន និងប្រពៃណីខ្មែរ។ <hr>
+                    <b style="color:yellow;">ស្នាដៃនិពន្ធដោយលោក​យ៉េន​ចេនឈី</b><hr>
+                   
+                </p>
+            </div>
 
-    <!-- 2. My Hobbies Section -->
-    <h2>2. My Hobbies</h2>
-    <div class="section-container">
-        <ul>
-            <li>Playing Football</li>
-            <li>Listening to Music</li>
-            <li>Watching Movies</li>
-            <li>Reading Books</li>
-            <li>Playing Games</li>
-        </ul>
-        <div class="image-box">
-            <img src="../Image/football.jpg" alt="Football">
-            <span class="caption">Football is my favorite hobby</span>
+            <div class="p-6 md:p-8 space-y-6">
+                <!-- Filters and Options -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Category Selection -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-gray-700 flex items-center space-x-2">
+                            <i class="fa-solid fa-layer-group text-cambodia-blue"></i>
+                            <span>ជ្រើសរើសប្រភេទសំណួរ៖</span>
+                        </label>
+                        <select id="categorySelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cambodia-blue focus:outline-none transition">
+                            <option value="all">គ្រប់ប្រភេទទាំងអស់ (៥០ សំណួរ)</option>
+                            <option value="history">ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា</option>
+                            <option value="culture">វប្បធម៌ ប្រពៃណី និងសិល្បៈ</option>
+                            <option value="geography">ភូមិសាស្ត្រ និងខេត្តក្រុង</option>
+                            <option value="landmarks">រម្មណីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ</option>
+                            <option value="food_society">ម្ហូបអាហារ និងសង្គម</option>
+                        </select>
+                    </div>
+
+                    <!-- Difficulty Selection -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-gray-700 flex items-center space-x-2">
+                            <i class="fa-solid fa-gauge-high text-cambodia-red"></i>
+                            <span>កម្រិតពិបាក៖</span>
+                        </label>
+                        <select id="difficultySelect" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cambodia-red focus:outline-none transition">
+                            <option value="all">គ្រប់កម្រិតទាំងអស់</option>
+                            <option value="easy">ងាយស្រួល (Easy)</option>
+                            <option value="medium">មធ្យម (Medium)</option>
+                            <option value="hard">ពិបាក (Hard)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Game Rules summary -->
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-start space-x-3 text-sm text-blue-900">
+                    <i class="fa-solid fa-circle-info text-cambodia-blue text-lg mt-0.5"></i>
+                    <div>
+                        <span class="font-bold">លក្ខខណ្ឌលេង៖</span> សំណួរនីមួយៗមានពេលកំណត់ ១៥ វិនាទី។ អ្នកនឹងទទួលបានពិន្ទុផ្អែកលើភាពត្រឹមត្រូវ និងល្បឿនក្នុងការឆ្លើយ។ មានការពន្យល់លម្អិតបន្ទាប់ពីជ្រើសរើសរួច។
+                    </div>
+                </div>
+
+                <!-- Start Button -->
+                <button onclick="app.startQuiz()" class="w-full bg-gradient-to-r from-cambodia-blue to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-bold py-4 rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center space-x-2 text-lg">
+                    <i class="fa-solid fa-play"></i>
+                    <span>ចាប់ផ្តើមលេងឥឡូវនេះ</span>
+                </button>
+            </div>
         </div>
-    </div>
 
-    <hr>
+        <!-- 2. QUIZ SCREEN -->
+        <div id="quizScreen" class="hidden w-full max-w-3xl bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            <!-- Quiz Header Bar -->
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <span id="questionCategoryTag" class="bg-blue-100 text-cambodia-blue text-xs font-bold px-3 py-1 rounded-full">
+                        ប្រវត្តិសាស្ត្រ
+                    </span>
+                    <span class="text-xs text-gray-500 font-medium">
+                        សំណួរទី <strong id="currentQuestionNum" class="text-gray-800">1</strong> នៃ <strong id="totalQuestionsNum" class="text-gray-800">50</strong>
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-1 text-sm font-bold text-gray-700 bg-white px-3 py-1 rounded-lg border border-gray-200 shadow-sm">
+                        <i class="fa-solid fa-star text-cambodia-gold"></i>
+                        <span id="currentScoreDisplay">0 ពិន្ទុ</span>
+                    </div>
+                    <!-- Timer Circle / Bar -->
+                    <div class="flex items-center space-x-1.5 text-xs font-bold px-3 py-1 rounded-lg text-white" id="timerContainer" style="background-color: #032ea1;">
+                        <i class="fa-solid fa-clock"></i>
+                        <span id="timerDisplay">15s</span>
+                    </div>
+                </div>
+            </div>
 
-    <!-- 3. My Favorite Foods Section -->
-    <h2>3. My Favorite Foods</h2>
-    <div class="section-container">
-        <div class="image-box">
-            <img src="../Image/Fried Rice.jpg" alt="Delicious Fried Rice">
-            <span class="caption">Delicious Fried Rice</span>
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-200 h-1.5">
+                <div id="progressBar" class="bg-cambodia-red h-1.5 transition-all duration-300" style="width: 0%;"></div>
+            </div>
+
+            <!-- Question & Options Container -->
+            <div class="p-6 md:p-8 space-y-6">
+                <h3 id="questionText" class="text-lg md:text-xl font-bold text-gray-900 leading-relaxed">
+                    <!-- Question text injected here -->
+                </h3>
+
+                <!-- Options List -->
+                <div id="optionsContainer" class="space-y-3">
+                    <!-- Options injected here -->
+                </div>
+
+                <!-- Explanation Box (Hidden initially) -->
+                <div id="explanationBox" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900 space-y-1">
+                    <div class="font-bold flex items-center space-x-2 text-amber-800">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>ការពន្យល់បន្ថែម៖</span>
+                    </div>
+                    <p id="explanationText" class="text-amber-900 leading-relaxed"></p>
+                </div>
+
+                <!-- Next Button Container -->
+                <div class="flex justify-end pt-2">
+                    <button id="nextBtn" onclick="app.nextQuestion()" class="hidden bg-cambodia-blue hover:bg-blue-800 text-white font-bold px-6 py-3 rounded-xl shadow transition flex items-center space-x-2">
+                        <span>សំណួរាប់ទៅ</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <ul>
-            <li>Fried Rice</li>
-            <li>Pizza</li>
-            <li>Hamburger</li>
-            <li>Noodle Soup</li>
-            <li>Fruits</li>
-        </ul>
-    </div>
 
-    <!-- Footer Section -->
-     <div class="footer">
-        <h3>Thank You!</h3>
-        <p>See you next time!</p>
-    </div>
+        <!-- 3. SUMMARY SCREEN -->
+        <div id="summaryScreen" class="hidden w-full max-w-3xl bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            <div class="bg-gradient-to-r from-cambodia-blue to-indigo-900 p-8 text-white text-center space-y-2">
+                <div class="w-16 h-16 bg-cambodia-gold text-cambodia-dark rounded-full flex items-center justify-center text-2xl mx-auto shadow-lg border-2 border-white mb-3">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-black">លទ្ធផលនៃការធ្វើតេស្តរបស់អ្នក</h2>
+                <p id="performanceMessage" class="text-sm text-gray-200">អបអរសាទរ! អ្នកបានបញ្ចប់ការសាកល្បងដោយជោគជ័យ។</p>
+            </div>
 
+            <div class="p-6 md:p-8 space-y-6">
+                <!-- Score Card Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="block text-xs text-gray-500 mb-1">ពិន្ទុសរុប</span>
+                        <span id="finalScore" class="text-xl font-black text-cambodia-blue">0</span>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="block text-xs text-gray-500 mb-1">ភាគរយត្រឹមត្រូវ</span>
+                        <span id="finalPercentage" class="text-xl font-black text-indigo-600">0%</span>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="block text-xs text-gray-500 mb-1">ឆ្លើយត្រូវ</span>
+                        <span id="finalCorrectCount" class="text-xl font-black text-green-600">0</span>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <span class="block text-xs text-gray-500 mb-1">ឆ្លើយខុស</span>
+                        <span id="finalWrongCount" class="text-xl font-black text-cambodia-red">0</span>
+                    </div>
+                </div>
+
+                <!-- Review Section Toggle -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-gray-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-clipboard-list text-cambodia-blue"></i>
+                            <span>ពិនិត្យចម្លើយឡើងវិញ (សំណួរ និងចម្លើយ)</span>
+                        </h3>
+                        <button onclick="app.toggleReviewList()" id="toggleReviewBtn" class="text-xs text-cambodia-blue hover:underline font-semibold flex items-center space-x-1">
+                            <span id="reviewToggleText">បង្ហាញលម្អិត</span>
+                            <i class="fa-solid fa-chevron-down" id="reviewToggleIcon"></i>
+                        </button>
+                    </div>
+
+                    <!-- Detailed Review List Container (Initially Hidden) -->
+                    <div id="reviewContainer" class="hidden space-y-4 max-h-96 overflow-y-auto p-2">
+                        <!-- Injected review items -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-200">
+                    <button onclick="app.resetToHome()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>លេងម្តងទៀត (ប្តូរការកំណត់)</span>
+                    </button>
+                    <button onclick="app.restartSameQuiz()" class="flex-1 bg-cambodia-blue hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl shadow transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-play"></i>
+                        <span>លេងសំណួរទាំងនេះម្តងទៀត</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-4 text-center text-xs text-gray-500">
+        <p>កម្មវិធីកម្រងសំណួរប្រទេសកម្ពុជា © 2026 | រៀបចំឡើងដើម្បីផ្សព្វផ្សាយចំណេះដឹងទូទៅពីកម្ពុជា</p>
+    </footer>
+
+    <!-- JavaScript Application Logic & 50 Questions Database -->
+    <script>
+        // Database of 50 comprehensive questions about Cambodia in Khmer
+        const ALL_QUESTIONS = [
+            // History & Archaeology (1-10)
+            {
+                id: 1,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "easy",
+                question: "តើអង្គរវត្តត្រូវបានសាងសង់ឡើងក្នុងរជ្ជកាលព្រះបាទអង្គរវត្ត ឬព្រះមហាក្សត្រអង្គណា?",
+                options: [
+                    "ព្រះបាទជ័យវរ្ម័នទី៧",
+                    "ព្រះបាទសූර්យវរ្ម័នទី២",
+                    "ព្រះបាទនរោត្តម សីហនុ",
+                    "ព្រះបាទឥសានវរ្ម័នទី១"
+                ],
+                correct: 1,
+                explanation: "ប្រាសាទអង្គរវត្តត្រូវបានសាងសង់ឡើងនៅពាក់កណ្តាលសតវត្សរ៍ទី១២ ក្នុងរជ្ជកាលព្រះបាទសួរយវរ្ម័នទី២ ដើម្បីឧទ្ទិសដល់ព្រះវិស្ណុក្នុងសាសនាព្រាហ្មណ៍ ឬហិណ្ឌូសាសនា។"
+            },
+            {
+                id: 2,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "easy",
+                question: "តើអាណាចក្រខ្មែរដំបូងបង្អស់ដែលមានឈ្មោះក្នុងប្រវត្តិសាស្ត្រចិនគឺអាណាចក្រអ្វី?",
+                options: [
+                    "អាណាចក្រចេនឡា",
+                    "អាណាចក្រហ្វូណន (នគរភ្នំ)",
+                    "អាណាចក្រចាមប៉ា",
+                    "អាណាចក្រលាវ"
+                ],
+                correct: 1,
+                explanation: "អាណាចក្រហ្វូណន ឬ នគរភ្នំ គឺជាអាណាចក្រដំបូងគេបង្អស់នៅទឹកដីសុវណ្ណភូមិដែលមានការកត់ត្រាក្នុងប្រវត្តិសាស្ត្រចិនចាប់ពីសតវត្សរ៍ទី១ ដល់សតវត្សរ៍ទី៦។"
+            },
+            {
+                id: 3,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "medium",
+                question: "តើប្រាសាទបាយ័នដែលមានមុខព្រហ្មបួនសាងសង់ឡើងក្នុងរជ្ជកាលព្រះមហាក្សត្រអង្គណា?",
+                options: [
+                    "ព្រះបាទជ័យវរ្ម័នទី៧",
+                    "ព្រះបាទយសោវរ្ម័នទី១",
+                    "ព្រះបាទជ័យវរ្ម័នទី២",
+                    "ព្រះបាទរាជេន្ទ្រវរ្ម័នទី២"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទបាយ័នត្រូវបានសាងសង់ឡើងនៅចុងសតវត្សរ៍ទី១២ និងដើមសតវត្សរ៍ទី១៣ ក្នុងរជ្ជកាលព្រះបាទជ័យវរ្ម័នទី៧ ដែលជារាជធានីអង្គរធំ។"
+            },
+            {
+                id: 4,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "medium",
+                question: "តើព្រះបាទជ័យវរ្ម័នទី២ បានប្រារព្ធពិធីរាជាភិសេកអធិរាជឯករាជ្យពីជ្វា នៅលើភ្នំស្ដេចណា?",
+                options: [
+                    "ភ្នំគូលែន (បរព្វត)",
+                    "ភ្នំបូកគោ",
+                    "ភ្នំពេញ",
+                    "ភ្នំសנטុក"
+                ],
+                correct: 0,
+                explanation: "នៅឆ្នាំស.វទី៩ (៨០២នៃគ.ស) ព្រះបាទជ័យវរ្ម័នទី២ បានធ្វើពិធីទេវរាជនៅលើភ្នំគូលែន ដើម្បីប្រកាសឯករាជ្យរបស់កម្ពុជាពីប្រទេសជ្វា។"
+            },
+            {
+                id: 5,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "hard",
+                question: "តើចារឹកភាសាខ្មែរដំបូងបង្អស់ក្នុងប្រវត្តិសាស្ត្រដែលត្រូវបានរកឃើញមានអាយុកាលចាស់ជាងគេបំផុតគឺនៅឆ្នាំណា?",
+                options: [
+                    "ឆ្នាំ ៦១១ នៃគ.ស (ចារឹករកកា)",
+                    "ឆ្នាំ ៥០៥ នៃគ.ស",
+                    "ឆ្នាំ ៨០២ នៃគ.ស",
+                    "ឆ្នាំ ១១៥០ នៃគ.ស"
+                ],
+                correct: 0,
+                explanation: "សិលាចារឹកភ្នំរង ឬចារឹកផ្សេងៗទៀតដូចជារកកា មានអាយុកាលចាស់ជាងគេក្នុងសម័យចេនឡា (សតវត្សរ៍ទី៧)។"
+            },
+            {
+                id: 6,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "easy",
+                question: "តើប្រទេសកម្ពុជាបានទទួលឯករាជ្យពេញលេញពីអាណានិគមបារាំងនៅថ្ងៃ ខែ ឆ្នាំ ណា?",
+                options: [
+                    "៩ វិច្ឆិកា ១៩៥៣",
+                    "២០ កក្កដា ១៩៥៤",
+                    "៧ មករា ១៩៧៩",
+                    "២៣ តុលា ១៩៩១"
+                ],
+                correct: 0,
+                explanation: "កម្ពុជាបានប្រកាសទទួលឯករាជ្យជាផ្លូវការក្រោមព្រះរាជកិច្ចដឹកនាំរបស់ព្រះករុណា ព្រះបាទនរោត្តម សីហនុ នៅថ្ងៃទី៩ ខែវិច្ឆិកា ឆ្នាំ១៩៥៣។"
+            },
+            {
+                id: 7,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "medium",
+                question: "តើទីក្រុងអង្គរត្រូវបានabandoned ឬបោះបង់ចោលជាលើកដំបូងក្នុងប្រវត្តិសាស្ត្រ ដោយសារការឈ្លានពាននិងកត្តាផ្សេងៗនៅសតវត្សរ៍ណា?",
+                options: [
+                    "សតវត្សរ៍ទី១៥ (ប្រហែល ១៤៣១)",
+                    "សតវត្សរ៍ទី១៨",
+                    "សតវត្សរ៍ទី១២",
+                    "សតវត្សរ៍ទី២០"
+                ],
+                correct: 0,
+                explanation: "នៅឆ្នាំ១៤៣១ ក្រោយពេលកងទ័ពអយុធ្យាចូលលុកលុករាជធានីអង្គរ ព្រះបាទបរមរាជាទី២ (ពញាយ៉ាត) បានសម្រេចព្រះទ័យប្តូររាជធានីទៅទួលបាសាក់ និងចតុមុខ (ភ្នំពេញបច្ចុប្បន្ន)។"
+            },
+            {
+                id: 8,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "hard",
+                question: "តើជនជាតិបរទេសណាម្នាក់ដែលបានសរសេរកំណត់ហេតុដ៏ល្បីល្បាញបំផុតស្តីពី 'ទំនៀមទម្លាប់នៃអ្នកស្រុកចេនឡា និងអង្គរ'?",
+                options: [
+                    "ជីវ តាក្វាន់ (Zhou Daguan)",
+                    "ម៉ាកូ ប៉ូឡូ (Marco Polo)",
+                    "ហ្វារ៉ាដេ (Henri Mouhot)",
+                    "អាឡិចសាន់ឌ្រ៍ ឌឺ រ៉ូត"
+                ],
+                correct: 0,
+                explanation: "ជីវ តាក្វាន់ គឺជាបេសកជនជនជាតិចិនពីសម័យរាជវង្សយ៉ុន ដែលបានមករស់នៅអង្គរពីឆ្នាំ១២៩៦ ដល់១២៩៧ និងបានសរសេរកត់ត្រាទុកយ៉ាងក្បោះក្បាយ។"
+            },
+            {
+                id: 9,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "medium",
+                question: "តើកិច្ចព្រមព្រៀងសន្តិភាពទីក្រុងប៉ារីសស្តីពីកម្ពុជាត្រូវបានចុះហត្ថលេខានៅថ្ងៃ ខែ ឆ្នាំ ណា?",
+                options: [
+                    "២៣ តុលា ១៩៩១",
+                    "៧ មករា ១៩៧៩",
+                    "២៩ កញ្ញា ១៩៩៣",
+                    "១៥ មករា ១៩៩២"
+                ],
+                correct: 0,
+                explanation: "កិច្ចព្រមព្រៀងសន្តិភាពទីក្រុងប៉ារីសត្រូវបានចុះហត្ថលេខានៅថ្ងៃទី២៣ ខែតុលា ឆ្នាំ១៩៩១ ដោយភាគីកម្ពុជា និងប្រទេសពាក់ព័ន្ធអន្តរជាតិចំនួន១៨។"
+            },
+            {
+                id: 10,
+                category: "history",
+                categoryName: "ប្រវត្តិសាស្ត្រ និងបុរាណវិទ្យា",
+                difficulty: "easy",
+                question: "តើស្ថាបនិកនៃអាណាចក្រហ្វូណនតាមរឿងព្រេងនិទានគឺក្សត្រអង្គណា និងព្រះនាងអ្វី?",
+                options: [
+                    "ព្រះកោណ្ឌិន្យ (ព្រះបាទហ៊ុនតៀន) និងព្រះនាងលីវយី (នាងនាគ)",
+                    "ព្រះថោង និងព្រះនាងបាវដុង",
+                    "ព្រះបាទសុរិយវង្ស និងព្រះនាងមាស",
+                    "ព្រះបាទបទុមសូរ្យ និងព្រះនាងកេសរ"
+                ],
+                correct: 0,
+                explanation: "តាមตำนานហ្វូណន ព្រះកោណ្ឌិន្យ (ព្រះបាទហ៊ុនតៀន) បានបាញ់ធ្នូត្រូវទូកព្រះនាងនាគ (លីវយី) រួចក៏បានអភិសេកជាស្ដេចស្ថាបនិកនគរ។"
+            },
+
+            // Culture & Traditions (11-20)
+            {
+                id: 11,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "easy",
+                question: "តើបុណ្យជាតិធំជាងគេបង្អស់ និងមានរយៈពេល៣ថ្ងៃនៅខែមេសា គឺបុណ្យអ្វី?",
+                options: [
+                    "បុណ្យចូលឆ្នាំថ្មីប្រពៃណីជាតិ (សង្กรานต์)",
+                    "បុណ្យភ្ជុំបិណ្ឌ",
+                    "បុណ្យអុំទូក បណ្តែតប្រទីប និងសំពះព្រះខែ",
+                    "បុណ្យចូលឆ្នាំចិន"
+                ],
+                correct: 0,
+                explanation: "បុណ្យចូលឆ្នាំថ្មីប្រពៃណីជាតិខ្មែរ (បុណ្យសង្กรานต์) ប្រារព្ធធ្វើឡើងជាទូទៅនៅថ្ងៃទី ១៣-១៤-១៥ ខែមេសា ជារៀងរាល់ឆ្នាំ។"
+            },
+            {
+                id: 12,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "easy",
+                question: "តើរបាំព្រះរាជទ្រព្យ (របាំបុរាណខ្មែរ) ត្រូវបានចុះក្នុងបញ្ជីបេតិកភណ្ឌវប្បធម៌អរូបីនៃមនុស្សជាតិរបស់អង្គការណាមួយ?",
+                options: [
+                    "អង្គការ UNESCO",
+                    "អង្គការ WHO",
+                    "អង្គការ UNICEF",
+                    "អង្គការ ASEAN"
+                ],
+                correct: 0,
+                explanation: "របាំព្រះរាជទ្រព្យត្រូវបានអង្គការ UNESCO ចុះបញ្ជីជាបេតិកភណ្ឌវប្បធម៌អរូបីនៃមនុស្សជាតិនៅថ្ងៃទី៧ ខែវិច្ឆិកា ឆ្នាំ២០០៣។"
+            },
+            {
+                id: 13,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "medium",
+                question: "តើល្បែងប្រជាប្រិយខ្មែរប្រភេទណាមួយដែលលេងក្នុងពេលបុណ្យចូលឆ្នាំ ដោយមានការបោះវត្ថុរទះ ឬកូនខទង្គិចគ្នា?",
+                options: [
+                    "ល្បែងចោលឈូង និងបោះអង្គុញ",
+                    "ល្បែងទាញព្រ័ត្រ",
+                    "ល្បែងលាក់កន្សែង",
+                    "ល្បែងបោះបាញ់"
+                ],
+                correct: 0,
+                explanation: "ល្បែងបោះអង្គុញ និងចោលឈូង គឺជាល្បែងប្រជាប្រិយដ៏ពេញនិយមក្នុងឱកាសបុណ្យចូលឆ្នាំខ្មែរ។"
+            },
+            {
+                id: 14,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "medium",
+                question: "តើស្បាយតន្រ្តីបុរាណខ្មែរប្រភេទណាមួយដែលប្រើប្រាស់សម្រាប់លេងក្នុងពិធីបុណ្យខួបកំណើត ឬអាពាហ៍ពិពាហ៍?",
+                options: [
+                    "ភ្លេងពិណពាទ្យ",
+                    "ភ្លេងអារក្ស និងភ្លេងការ",
+                    "ភ្លេងខេមរយន្ត",
+                    "ភ្លេងប្រពៃណីចិន"
+                ],
+                correct: 1,
+                explanation: "ភ្លេងការ គឺជាក្រុមតន្ត្រីបុរាណខ្មែរដែលប្រគំក្នុងពិធីមង្គលការ តាំងពីបុរាណកាលមកជាមួយនឹងបទភ្លេងពិស្តារជាច្រើនបទ។"
+            },
+            {
+                id: 15,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "hard",
+                question: "តើសិល្បៈចម្លាក់ល្មៀត ឬចម្លាក់ស្បែកធំ ដែលត្រូវបានចុះបញ្ជី UNESCO ដែរនោះហៅថាអ្វី?",
+                options: [
+                    "ល្ខោនស្បែកធំ (Sbek Thom)",
+                    "ល្ខោនបាសាក់",
+                    "ល្ខោនយីកេ",
+                    "ល្ខោនខោល"
+                ],
+                correct: 0,
+                explanation: "ល្ខោនស្បែកធំ គឺជាសិល្បៈល្ខោនស្រមោលដ៏អស្ចារ្យរបស់ខ្មែរ ដែលប្រើស្បែកឆ្លាក់រឿងរាមកេរ្តិ៍ ហើយត្រូវបានដាក់បញ្ចូលក្នុងបញ្ជី UNESCO នៅឆ្នាំ២០០៥។"
+            },
+            {
+                id: 16,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "easy",
+                question: "តើពិធីបុណ្យកាន់បិណ្ឌ និងភ្ជុំបិណ្ឌមានរយៈពេលប៉ុន្មានថ្ងៃ?",
+                options: [
+                    "១៥ថ្ងៃ (១៤ថ្ងៃបិណ្ឌ និង ១ថ្ងៃថ្ងៃភ្ជុំ)",
+                    "៧ថ្ងៃ",
+                    "៣០ថ្ងៃ",
+                    "៣ថ្ងៃ"
+                ],
+                correct: 0,
+                explanation: "បុណ្យកាន់បិណ្ឌនិងភ្ជុំបិណ្ឌប្រារព្ធធ្វើឡើងរៀងរាល់ឆ្នាំក្នុងខែភទ្របទ មានរយៈពេលសរុប ១៥ថ្ងៃ ដែលថ្ងៃទី១៥ ជាថ្ងៃភ្ជុំបិណ្ឌធំ។"
+            },
+            {
+                id: 17,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "medium",
+                question: "តើស្បាយមុខម្ហូបប្រពៃណីខ្មែរអមដោយបន្លែស្រស់ និងការបរិភោគក្នុងពិធីបុណ្យអុំទូកគឺអ្វី?",
+                options: [
+                    "អំបុកទឹកตาล (អំបុកទើបបុកថ្មីៗ)",
+                    "នំបញ្ចុកទឹកសម្លខ្មែរ",
+                    "នំថាំងយ៉ា",
+                    "នំអន្សមបាយខ្សាយ"
+                ],
+                correct: 0,
+                explanation: "អំបុក (អំបុកអនកសៀមរាប ឬអំបុកកណ្តាល) គឺជានិមិត្តសញ្ញានៃពិធីអុំទូក បណ្តែតប្រទីប និងសំពះព្រះខែ អមដោយការអកអំបុកចំពេលពាក់កណ្តាលអធ្រាត្រ។"
+            },
+            {
+                id: 18,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "hard",
+                question: "តើសាសនាផ្លូវការរបស់ព្រះរាជាណាចក្រកម្ពុជាមានចែងក្នុងរដ្ឋធម្មនុញ្ញគឺសាសនាអ្វី?",
+                options: [
+                    "ព្រះពុទ្ធសាសនា (និកាយថេរវាទ)",
+                    "ព្រះពុទ្ធសាសនា (និកាយមហាយាន)",
+                    "ហិណ្ឌូសាសនា",
+                    "គ្រិស្តសាសនា"
+                ],
+                correct: 0,
+                explanation: "មាត្រា ៤ នៃរដ្ឋធម្មនុញ្ញនៃព្រះរាជាណាចក្រកម្ពុជាបានចែងថា ព្រះពុទ្ធសាសនាគឺជាសាសនារបស់រដ្ឋ។"
+            },
+            {
+                id: 19,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "medium",
+                question: "តើសិល្បៈក្បាច់គុនបុរាណខ្មែរអបគាំទ្រការការពារខ្លួនដែលល្បីល្បាញនិងដាក់ក្នុង UNESCO គឺអ្វី?",
+                options: [
+                    "ក្បាច់គុនល្បុក្កតោ (Lbokator)",
+                    "ប្រដាល់សាកល",
+                    "តេក្វាន់ដូ",
+                    "ការ៉ាតេដូ"
+                ],
+                correct: 0,
+                explanation: "ក្បាច់គុនល្បុក្កតោ គឺជាក្បាច់គុនបុរាណខ្មែរដ៏ចំណាស់ ដែលត្រូវបានចុះក្នុងបញ្ជីបេតិកភណ្ឌអរូបីរបស់ UNESCO នៅខែធ្នូ ឆ្នាំ២០២២។"
+            },
+            {
+                id: 20,
+                category: "culture",
+                categoryName: "វប្បធម៌ ប្រពៃណី និងសិល្បៈ",
+                difficulty: "easy",
+                question: "តើសំលៀកបំពាក់ប្រពៃណី ឬក្រណាត់តសាច់ដ៏ល្បីល្បាញរបស់ខ្មែរមានឈ្មោះថាអ្វី?",
+                options: [
+                    "ហូល និងផាមួង",
+                    "សារ៉ុងសូត្រឥណ្ឌា",
+                    "សំពត់ចងក្បិនធម្មតា",
+                    "ខោអាវប៉ាក់ថៃ"
+                ],
+                correct: 0,
+                explanation: "ហូល និងផាមួង គឺជាប្រភេទខ្សែកាប និងក្រណាត់សូត្រប្រពៃណីដ៏មានតម្លៃរបស់ខ្មែរ ដែលត្បាញដោយដៃយ៉ាងល្អិតល្អន់។"
+            },
+
+            // Geography & Provinces (21-30)
+            {
+                id: 21,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "easy",
+                question: "តើទន្លេដ៏ធំល្វឹងល្វើយ និងជាបេះដូងទឹកសាបរបស់កម្ពុជាមានឈ្មោះថាអ្វី?",
+                options: [
+                    "ទន្លេមេគង្គ និងទន្លេសាប",
+                    "ទន្លេអាម៉ាហ្សូន",
+                    "ទន្លេនីល",
+                    "ទន្លេគង្គា"
+                ],
+                correct: 0,
+                explanation: "ទន្លេមេគង្គ និងទន្លេសាប រួមជាមួយបឹងទន្លេសាប គឺជាប្រព័ន្ធអេកូឡូស៊ីទឹកសាបដ៏ធំបំផុតក្នុងតំបន់អាស៊ីអាគ្នេយ៍។"
+            },
+            {
+                id: 22,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "easy",
+                question: "តើបឹងទន្លេសាបមានបាតុភូតដ៏អស្ចារ្យមួយគឺអ្វី?",
+                options: [
+                    "បាតុភូតទឹកហូរថយក្រោយ (ប្តូរទិសដៅទន្លេ)",
+                    "បាតុភូតទឹកកកកកស្កុស",
+                    "បាតុភូតទឹកប្រៃហួត",
+                    "បាតុភូតទឹកពុះ"
+                ],
+                correct: 0,
+                explanation: "បឹងទន្លេសាបមានបាតុភូតទឹកហូរថយក្រោយចូលក្នុងបឹងក្នុងរដូវវស្សា ដោយសារការកើនឡើងនៃកម្ពស់ទឹកទន្លេមេគង្គ។"
+            },
+            {
+                id: 23,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "medium",
+                question: "តើខេត្តចំនួនប៉ុន្មានដែលមានព្រំប្រទល់ជាប់នឹងប្រទេសថៃ?",
+                options: [
+                    "៧ ខេត្ត",
+                    "៣ ខេត្ត",
+                    "១០ ខេត្ត",
+                    "៥ ខេត្ត"
+                ],
+                correct: 0,
+                explanation: "កម្ពុជាមានខេត្តចំនួន ៧ ដែលជាប់ព្រំប្រទល់ជាមួយប្រទេសថៃ រួមមាន កោះកុង ពោធិ៍សាត់ បាត់ដំបង បន្ទាយមានជ័យ អង្គរវត្ត(សៀមរាបអត់ជាប់) ឧត្តរមានជ័យ ព្រះវិហារ និងប៉ៃលិន។"
+            },
+            {
+                id: 24,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "medium",
+                question: "តើភ្នំខ្ពស់ជាងគេបំផុតនៅក្នុងប្រទេសកម្ពុជាស្ថិតក្នុងជួរភ្នំក្រវាញមានឈ្មោះថាអ្វី?",
+                options: [
+                    "ភ្នំឱរ៉ាល់ (កម្ពស់ប្រហែល ១,៨១៣ម៉ែត្រ)",
+                    "ភ្នំបូកគោ",
+                    "ភ្នំគូលែន",
+                    "ភ្នំខ្នងផ្សារ"
+                ],
+                correct: 0,
+                explanation: "ភ្នំឱរ៉ាល់ គឺជាកំពូលភ្នំខ្ពស់ជាងគេបំផុតនៅក្នុងប្រទេសកម្ពុជា ដែលមានទីតាំងស្ថិតនៅក្នុងជួរភ្នំក្រវាញ។"
+            },
+            {
+                id: 25,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "easy",
+                question: "តើប្រទេសកម្ពុជាមានព្រំដែនគោកជាប់នឹងប្រទេសចំនួនប៉ុន្មាន?",
+                options: [
+                    "៣ ប្រទេស (ថៃ ឡាវ វៀតណាម)",
+                    "២ ប្រទេស",
+                    "៤ ប្រទេស",
+                    "១ ប្រទេស"
+                ],
+                correct: 0,
+                explanation: "កម្ពុជាមានព្រំប្រទល់ខាងលិចនិងពាយព្យជាប់នឹងប្រទេសថៃ ខាងជើងជាប់នឹងប្រទេសឡាវ និងខាងកើតនិងខាងត្បូងជាប់នឹងប្រទេសវៀតណាម។"
+            },
+            {
+                id: 26,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "medium",
+                question: "តើខេត្តណាដែលមានទីតាំងស្ថិតនៅភាគឦសាន្ត និងមានសត្វដំរីព្រៃ និងជនជាតិដើមភាគតិចច្រើនជាងគេ?",
+                options: [
+                    "ខេត្តមណ្ឌលគីរី និងរតនគីរី",
+                    "ខេត្តកែប និងកំពត",
+                    "ខេត្តស្វាយរៀង និងព្រៃវែង",
+                    "ខេត្តកណ្តាល"
+                ],
+                correct: 0,
+                explanation: "ខេត្តមណ្ឌលគីរី និងរតនគីរី ស្ថិតនៅតំបន់ខ្ពង់រាបភាគឦសាន្ត ដែលសម្បូរទៅដោយព្រៃឈើ ទឹកជ្រោះ និងបងប្អូនជនជាតិដើមភាគតិច។"
+            },
+            {
+                id: 27,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "hard",
+                question: "តើកម្ពុជាមានខេត្តក្រុងសរុបចំនួនប៉ុន្មានបន្ទាប់ពីមានការកែសម្រួលរដ្ឋបាលថ្មីៗ?",
+                options: [
+                    "២៥ ខេត្ត-ក្រុង (២៤ខេត្ត និង ១រាជធានី)",
+                    "២០ ខេត្ត-ក្រុង",
+                    "២ ឆ្នាំ ខេត្ត",
+                    "២៦ ខេត្ត-ក្រុង"
+                ],
+                correct: 0,
+                explanation: "ព្រះរាជាណាចក្រកម្ពុជាបច្ចុប្បន្នត្រូវបានបែងចែកជា ២៥ រាជធានី-ខេត្ត (រាជធានីភ្នំពេញ និង ២៤ ខេត្ត)។"
+            },
+            {
+                id: 28,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "medium",
+                question: "តើច្រកសមុទ្រ ឬខេត្តជាប់សមុទ្ររបស់កម្ពុជាមានចំនួនប៉ុន្មានខេត្តក្រុង?",
+                options: [
+                    "៤ ខេត្ត-ក្រុង (ព្រះសីហនុ កំពត កោះកុង កែប)",
+                    "២ ខេត្ត-ក្រុង",
+                    "៦ ខេត្ត-ក្រុង",
+                    "គ្មានខេត្តជាប់សមុទ្រទេ"
+                ],
+                correct: 0,
+                explanation: "កម្ពុជាមានcoastline ប្រហែល ៤៤០គីឡូម៉ែត្រ ដែលមានខេត្តក្រុងជាប់សមុទ្រចំនួន ៤ គឺ ព្រះសីហនុ កំពត កោះកុង និងកែប។"
+            },
+            {
+                id: 29,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "easy",
+                question: "តើទន្លេបួនមុខ (ចតុមុខ) នៅរាជធានីភ្នំពេញផ្សំឡើងពីទន្លេអ្វីខ្លះ?",
+                options: [
+                    "ទន្លេមេគង្គលើ, ទន្លេមេគង្គក្រោម, ទន្លេសាប និងទន្លេបាសាក់",
+                    "ទន្លេស្ទឹងសែន និងទន្លេស្តឹងជីនិត",
+                    "ទន្លេមេគង្គ និងទន្លេកោះកុង",
+                    "ទន្លេអង្គរ និងទន្លេក្រចេះ"
+                ],
+                correct: 0,
+                explanation: "ទន្លេចតុមុខ គឺជាចំណុចဆုံគ្នានៃទន្លេធំៗចំនួនបួនគឺ ទន្លេមេគង្គលើ, ទន្លេមេគង្គក្រោម, ទន្លេសាប និងទន្លេបាសាក់។"
+            },
+            {
+                id: 30,
+                category: "geography",
+                categoryName: "ភូមិសាស្ត្រ និងខេត្តក្រុង",
+                difficulty: "hard",
+                question: "តើកោះធំជាងគេបំផុតនៅក្នុងប្រទេសកម្ពុជាគឺកោះអ្វី?",
+                options: [
+                    "កោះកុង (Koh Kong Island)",
+                    "កោះរ៉ុង (Koh Rong)",
+                    "កោះសាលឿន",
+                    "កោះតាង"
+                ],
+                correct: 0,
+                explanation: "កោះកុងក្រៅ ឬកោះកុង គឺជាកោះធំជាងគេបំផុតនៅក្នុងដែនទឹកសមុទ្រនៃប្រទេសកម្ពុជា។"
+            },
+
+            // Landmarks & Temples (31-40)
+            {
+                id: 31,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "easy",
+                question: "តើប្រាសាទថ្មភក់ដ៏ល្បីល្បាញដែលមានមុខព្រហ្មញញឹមច្រើនជាងគេនៅខេត្តសៀមរាបគឺប្រាសាទអ្វី?",
+                options: [
+                    "ប្រាសាទបាយ័ន",
+                    "ប្រាសាទតាព្រហ្ម",
+                    "ប្រាសាទបន្ទាយស្រី",
+                    "ប្រាសាទព្រះវិហារ"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទបាយ័នស្ថិតនៅចំកណ្តាលទីក្រុងអង្គរធំ ដែលល្បីល្បាញខាងចម្លាក់មុខព្រហ្មព្រះបាទាវលោកេស្វរចំនួន ២១៦ មុខ។"
+            },
+            {
+                id: 32,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "easy",
+                question: "តើប្រាសាទដែលល្បីល្បាញដោយសារដើមឈើធំៗ (ស្រម៉ និងស្ពង់) ដុះគ្របលើជញ្ជាំងថ្ម និងជាកន្លែងថតកុនហូលីវូដ (Tomb Raider) គឺប្រាសាទអ្វី?",
+                options: [
+                    "ប្រាសាទតាព្រហ្ម (Ta Prohm)",
+                    "ប្រាសាទបាខែង",
+                    "ប្រាសាទបន្ទាយសំរែ",
+                    "ប្រាសាទប្រែរূপ"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទតាព្រហ្មត្រូវបានទុកជាសភាពដើមដែលរុំព័ទ្ធដោយធម្មជាតិនិងឫសឈើធំៗយ៉ាងស្រស់ស្អាត។"
+            },
+            {
+                id: 33,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "medium",
+                question: "តើប្រាសាទបន្ទាយស្រីត្រូវបានកសាងឡើងដោយថ្មភក់ពណ៌ផ្កាឈូក និងមានចម្លាក់វិចិត្របំផុត ឧទ្ទិសដល់ព្រះអ្វី?",
+                options: [
+                    "ព្រះសិវៈ (ហិណ្ឌូសាសនា)",
+                    "ព្រះពុទ្ធគោតម",
+                    "ព្រះព្រហ្ម",
+                    "ព្រះនារាយណ៍"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទបន្ទាយស្រីសាងសង់ពីថ្មភក់ពណ៌ផ្កាឈូក មានចម្លាក់លម្អយ៉ាងល្អិតល្អន់បំផុត ឧទ្ទិសដល់ព្រះសិវៈ និងកសាងដោយព្រាហ្មណ៍យជ្ញាវរាហៈ។"
+            },
+            {
+                id: 34,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "medium",
+                question: "តើប្រាសាទព្រះវិហារដែលស្ថិតនៅលើខ្នងភ្នំដងរែក ត្រូវបានចុះក្នុងបញ្ជីបេតិកភណ្ឌពិភពលោក UNESCO នៅឆ្នាំណា?",
+                options: [
+                    "ឆ្នាំ ២០០៨",
+                    "ឆ្នាំ ១៩៩២",
+                    "ឆ្នាំ ២០១២",
+                    "ឆ្នាំ ១៩៨៥"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទព្រះវិហារត្រូវបានដាក់បញ្ចូលជាបេតិកភណ្ឌពិភពលោករបស់ UNESCO នៅថ្ងៃទី៧ ខែកក្កដា ឆ្នាំ២០០៨។"
+            },
+            {
+                id: 35,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "easy",
+                question: "តើព្រះបរមរាជវាំង និងវត្តព្រះកែវមរកត (វត្តអារាមខេមរិន្ទ) ស្ថិតនៅក្នុងរាជធានីណា?",
+                options: [
+                    "រាជធានីភ្នំពេញ",
+                    "ខេត្តសៀមរាប",
+                    "ខេត្តបាត់ដំបង",
+                    "ខេត្តកំពត"
+                ],
+                correct: 0,
+                explanation: "ព្រះបរមរាជវាំងនៃព្រះរាជាណាចក្រកម្ពុជា និងវត្តព្រះកែវមរកត ស្ថិតនៅចំកណ្តាលរាជធានីភ្នំពេញ អមដោយស្ថាបត្យកម្មខ្មែរដ៏ប្រណិត។"
+            },
+            {
+                id: 36,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "medium",
+                question: "តើប្រាសាទសំបូរព្រៃគុក ដែលជារាជធានីបុរាណសម័យឥសានបុរៈ ស្ថិតនៅក្នុងខេត្តអ្វី?",
+                options: [
+                    "ខេត្តកំពង់ធំ",
+                    "ខេត្តស្វាយរៀង",
+                    "ខេត្តតាកែវ",
+                    "ខេត្តកំពង់ឆ្នាំង"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទសំបូរព្រៃគុក ជារាជធានីនៃអាណាចក្រចេនឡាសម័យព្រះបាទឥសានវរ្ម័នទី១ ស្ថិតក្នុងខេត្តកំពង់ធំ និងបានចូលជាបេតិកភណ្ឌពិភពលោកឆ្នាំ២០១៧។"
+            },
+            {
+                id: 37,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "hard",
+                question: "តើប្រាសាទកោះកែរ ដែលជារាជធានីបុរាណសម័យព្រះបាទជ័យវរ្ម័នទី៤ មានប្រាសាទពីរ៉ាមីតដ៏ធំមានកម្ពស់ប៉ុន្មានជាន់?",
+                options: [
+                    "ប្រាសាទធំមាន ៧ ជាន់",
+                    "ប្រាសាទមាន ៥ ជាន់",
+                    "ប្រាសាទមាន ៩ ជាន់",
+                    "ប្រាសាទមាន ៣ ជាន់"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទធំនៅកោះកែរ គឺជារចនាសម្ព័ន្ធពីរ៉ាមីត៧ជាន់ ដែលស្ថាបនាឡើងនៅសតវត្សរ៍ទី១០ ក្នុងរជ្ជកាលព្រះបាទជ័យវរ្ម័នទី៤ (សហគមន៍ UNESCO ឆ្នាំ២០២៣)។"
+            },
+            {
+                id: 38,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "medium",
+                question: "តើវត្តភ្នំ ដែលជានិមិត្តសញ្ញាកំណើតរាជធានីភ្នំពេញត្រូវបានកសាងឡើងដោយនរណា?",
+                options: [
+                    "លោកយាយពេញ ឆ្នាំ១៣៧៣",
+                    "ព្រះបាទអង្គឌឿង",
+                    "ព្រះនាងនាគ",
+                    "ពញាយ៉ាត"
+                ],
+                correct: 0,
+                explanation: "វត្តភ្នំត្រូវបានកសាងឡើងដោយលោកយាយពេញក្នុងឆ្នាំ១៣៧៣ ក្រោយពេលប្រទះឃើញព្រះពុទ្ធរូបបួនអង្គគង់ក្នុងដើមគគីរអណ្តែតទឹកទន្លេ។"
+            },
+            {
+                id: 39,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "easy",
+                question: "តើស្ពានបុរាណនីកាយអង្វរ ឬស្ពាននាគព័ន្ធបុរាណដ៏ល្បីល្បាញឆ្លងកាត់ស្ទឹងជីបាត ឬស្ពានហង្សមានឈ្មោះថាអ្វី (ស្ពានថ្មបុរាណជាងគេ)?",
+                options: [
+                    "ស្ពានហ្សុយ (ស្ពានកំពង់ក្ដី)",
+                    "ស្ពានព្រះមុន្នីវង្ស",
+                    "ស្ពានជ្រោយចង្វា",
+                    "ស្ពាននាគ"
+                ],
+                correct: 0,
+                explanation: "ស្ពានកំពង់ក្ដី (ស្ពានហ្សុយ) គឺជាស្ពានបុរាណសម័យអង្គរដ៏ធំសាងសង់ពីថ្មបាយក្រៀម មានខឿននាគ ២១ ក្បាល ស្ថិតលើផ្លូវជាតិលេខ៦។"
+            },
+            {
+                id: 40,
+                category: "landmarks",
+                categoryName: "ទីរមនីយដ្ឋាន និងសំណង់ប្រវត្តិសាស្ត្រ",
+                difficulty: "hard",
+                question: "តើប្រាសាទបាគង ដែលជាប្រាសាទភ្នំដំបូងគេសាងសង់ពីថ្មភក់ក្នុងរាជធានីហរិល័យបុរៈ (រលួស) កសាងឡើងក្នុងរជ្ជកាលស្ដេចអង្គណា?",
+                options: [
+                    "ព្រះបាទឥន្ទ្រវរ្ម័នទី១",
+                    "ព្រះបាទយសោវរ្ម័នទី១",
+                    "ព្រះបាទជ័យវរ្ម័នទី២",
+                    "ព្រះបាទសូរ្យវរ្ម័នទី១"
+                ],
+                correct: 0,
+                explanation: "ប្រាសាទបាគងកសាងឡើងនៅឆ្នាំ៨៨១ ក្នុងរជ្ជកាលព្រះបាទឥន្ទ្រវរ្ម័នទី១ ជាប្រាសាទភ្នំដំបូងបង្អស់ដែលតំណាងឱ្យភ្នំព្រះសុមេរុ។"
+            },
+
+            // Food, Society & General Knowledge (41-50)
+            {
+                id: 41,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "easy",
+                question: "តើម្ហូបជាតិដ៏ល្បីល្បាញបំផុតរបស់កម្ពុជាដែលធ្វើពីត្រី និងគ្រឿងទេសបុកជាមួយខ្ទិះដូងហៅថាអ្វី?",
+                options: [
+                    "អាម៉ុកត្រី (Fish Amok)",
+                    "សម្លការី",
+                    "បុកល្ហុង",
+                    "នំបញ្ចុកសម្លរខាប់"
+                ],
+                correct: 0,
+                explanation: "អាម៉ុកត្រី ត្រូវបានចាត់ទុកជាម្ហូបជាតិដ៏ល្បីល្បាញបំផុតរបស់កម្ពុជា ដែលមានរសជាតិឈ្ងុយឆ្ងាញ់និងក្លិនឈ្ងុយនៃស្លឹកគ្រៃនិងខ្ទិះដូង។"
+            },
+            {
+                id: 42,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "easy",
+                question: "តើប្រាក់រៀល (KHR) គឺជាអ្វី?",
+                options: [
+                    "រូបិយវត្ថុផ្លូវការរបស់ព្រះរាជាណាចក្រកម្ពុជា",
+                    "ឈ្មោះទន្លេ",
+                    "ឈ្មោះសត្វព្រៃកម្រ",
+                    "ឈ្មោះរបាំបុរាណ"
+                ],
+                correct: 0,
+                explanation: "ប្រាក់រៀល គឺជារូបិយវត្ថុផ្លូវការរបស់ប្រទេសកម្ពុជា ដែលត្រូវបានដាក់ឱ្យចរាចរណ៍ឡើងវិញនៅថ្ងៃទី២០ ខែមីនា ឆ្នាំ១៩៨០។"
+            },
+            {
+                id: 43,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "medium",
+                question: "តើសត្វនិមិត្តសញ្ញា ឬសត្វតំណាងជាតិផ្លូវការរបស់ប្រទេសកម្ពុជាគឺសត្វអ្វី?",
+                options: [
+                    "សត្វទន្សោង (Kouprey)",
+                    "សត្វដំរី",
+                    "សត្វខ្លាឃ្មុំ",
+                    "សត្វរាជសីห์"
+                ],
+                correct: 0,
+                explanation: "សត្វទន្សោង គឺជាសត្វព្រៃអន្តរជាតិកម្រ និងត្រូវបានកំណត់ជាសត្វតំណាងជាតិផ្លូវការរបស់ព្រះរាជាណាចក្រកម្ពុជា។"
+            },
+            {
+                id: 44,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "medium",
+                question: "តើផ្កាអំបែង ឬផ្កាតំណាងជាតិផ្លូវការរបស់ប្រទេសកម្ពុជាគឺផ្កាអ្វី?",
+                options: [
+                    "ផ្ការំដួល (Rumduol)",
+                    "ផ្កាឈូក",
+                    "ផ្កាម្លិះ",
+                    "ផ្កាកុលាប"
+                ],
+                correct: 0,
+                explanation: "ផ្ការំដួល មានក្លិនក្រអូបឈ្ងុយស្រទន់ និងត្រូវបានព្រះរាជក្រឹត្យកំណត់ជាផ្កាតំណាងជាតិរបស់កម្ពុជា។"
+            },
+            {
+                id: 45,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "easy",
+                question: "តើសម្លប្រពៃណីខ្មែរមួយមុខដែលពេញនិយមញ៉ាំជាមួយនំបញ្ចុកពេលមានបុណ្យទានគឺសម្លអ្វី?",
+                options: [
+                    "សម្លខ្មែរ (ឬសម្លប្រហើរ) និងសម្លការី",
+                    "សម្លជូរគ្រឿង",
+                    "សម្លម្ជូរយួន",
+                    "សម្លកកូរ"
+                ],
+                correct: 0,
+                explanation: "នំបញ្ចុកសម្លប្រហើរ ឬសម្លការី គឺជាមុខម្ហូបប្រពៃណីដ៏មានប្រជាប្រិយភាពក្នុងគ្រួសារខ្មែរគ្រប់កាលៈទេសៈ។"
+            },
+            {
+                id: 46,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "hard",
+                question: "តើភាសាខ្មែរស្ថិតក្នុងអំបូរភាសាណា?",
+                options: [
+                    "អំបូរភាសាមន់-ខ្មែរ (Austroasiatic)",
+                    "អំបូរភាសាចិន-ទីបេ",
+                    "អំបូរភាសាឥណ្ឌូ-អឺរ៉ុប",
+                    "អំបូរភាសាកូរ៉េ-ជប៉ុន"
+                ],
+                correct: 0,
+                explanation: "ភាសាខ្មែរស្ថិតនៅក្នុងអំបូរភាសាមន់-ខ្មែរ (Austroasiatic language family) ដែលជាអំបូរភាសាដ៏ចំណាស់ជាងគេមួយក្នុងតំបន់អាស៊ីអាគ្នេយ៍។"
+            },
+            {
+                id: 47,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "medium",
+                question: "តើទ្រព្យសម្បត្តិវប្បធម៌អរូបីណាមួយរបស់ខ្មែរដែលល្បីខាងការដាំដុះ និងផលិតឡើងដោយកសិករកំពង់ស្ពឺ?",
+                options: [
+                    "ស្ករត្នោតកំពង់ស្ពឺ (និងអំបិលកំពត)",
+                    "អង្ករផ្ការំដួលបាត់ដំបង",
+                    "ម្រេចកោះកុង",
+                    "ទុរេនខេត្តកំពត"
+                ],
+                correct: 0,
+                explanation: "ស្ករត្នោតកំពង់ស្ពឺ និងម្រេចកំពត គឺជាផលិតផលសម្គាល់ភូមិសាស្ត្រ (GI) ដំបូងគេរបស់កម្ពុជាដែលត្រូវបានទទួលស្គាល់អន្តរជាតិ។"
+            },
+            {
+                id: 48,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "easy",
+                question: "តើបាវចនា (Motto) ផ្លូវការរបស់ប្រទេសកម្ពុជាមានចែងថាអ្វី?",
+                options: [
+                    "ជាតិ សាសនា ព្រះមហាក្សត្រ",
+                    "សេរីភាព សមភាព ភរិយាភាព",
+                    "សន្តិភាព អភិវឌ្ឍន៍ ប្រជាធិបតេយ្យ",
+                    "សាមគ្គី កសាង ការពារ"
+                ],
+                correct: 0,
+                explanation: "បាវចនារបស់ព្រះរាជាណាចក្រកម្ពុជាគឺ 'ជាតិ សាសនា ព្រះមហាក្សត្រ' ដែលមានសរសេរនៅលើដងទង់ជាតិ។"
+            },
+            {
+                id: 49,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "medium",
+                question: "តើស្ថាប័ននីតិប្បញ្ញត្តិ (សភា) របស់កម្ពុជាមានប្រព័ន្ធប៉ុន្មានថ្នាក់ (Bicameral)?",
+                options: [
+                    "ពីរថ្នាក់ (រដ្ឋសភា និងព្រឹទ្ធសភា)",
+                    "មួយថ្នាក់គត់",
+                    "បីថ្នាក់",
+                    "បួនថ្នាក់"
+                ],
+                correct: 0,
+                explanation: "រដ្ឋសភា និងព្រឹទ្ធសភា គឺជាស្ថាប័ននីតិប្បញ្ញត្តិពីរថ្នាក់របស់ប្រទេសកម្ពុជា។"
+            },
+            {
+                id: 50,
+                category: "food_society",
+                categoryName: "ម្ហូបអាហារ និងសង្គម",
+                difficulty: "hard",
+                question: "តើអក្សរខ្មែរមានដើមកំណើតវិវត្តន៍ចេញពីអក្សរអ្វីពីប្រទេសឥណ្ឌាបុរាណ?",
+                options: [
+                    "អក្សរព្រាហ្មី (Brahmi script) តាមរយៈអក្សរបាឡាវីនិងសន្សក្រឹត",
+                    "អក្សរចិនបុរាណ",
+                    "អក្សរអារ៉ាប់",
+                    "អក្សរក្រិច"
+                ],
+                correct: 0,
+                explanation: "អក្សរខ្មែរ (ទាំងអក្សរមូល និងអក្សរជ្រៀង) បានវិវត្តន៍មកពីអក្សរព្រាហ្មី និងអក្សរបល្លវៈរបស់ប្រទេសឥណ្ឌាតាំងពីសតវត្សរ៍ទី១នៃគ.ស។"
+            }
+        ];
+
+        // Application State Management
+        class CambodiaQuizApp {
+            constructor() {
+                this.questions = [];
+                this.currentIndex = 0;
+                this.score = 0;
+                this.correctCount = 0;
+                this.wrongCount = 0;
+                this.userAnswers = []; // Stores user selection and outcome for review
+                this.timer = null;
+                this.timeLeft = 15;
+                this.isAnswered = false;
+                this.highScore = 0;
+
+                this.initLocalStorage();
+                this.updateHighScoreDisplay();
+            }
+
+            initLocalStorage() {
+                const saved = localStorage.getItem('cambodia_quiz_highscore');
+                if (saved) {
+                    this.highScore = parseInt(saved, 10);
+                }
+            }
+
+            updateHighScoreDisplay() {
+                const el = document.getElementById('headerHighScore');
+                if (el) el.textContent = this.highScore;
+                if (this.highScore > 0) {
+                    document.getElementById('highScoreBadge').classList.remove('hidden');
+                }
+            }
+
+            saveHighScore() {
+                if (this.score > this.highScore) {
+                    this.highScore = this.score;
+                    localStorage.setItem('cambodia_quiz_highscore', this.highScore);
+                    this.updateHighScoreDisplay();
+                }
+            }
+
+            startQuiz() {
+                const category = document.getElementById('categorySelect').value;
+                const difficulty = document.getElementById('difficultySelect').value;
+
+                // Filter questions based on selection
+                let filtered = ALL_QUESTIONS;
+                if (category !== 'all') {
+                    filtered = filtered.filter(q => q.category === category);
+                }
+                if (difficulty !== 'all') {
+                    filtered = filtered.filter(q => q.difficulty === difficulty);
+                }
+
+                if (filtered.length === 0) {
+                    alert('សូមអភ័យទោស គ្មានសំណួរសម្រាប់លក្ខខណ្ឌនេះទេ។ សូមជ្រើសរើសជម្រើសផ្សេង។');
+                    return;
+                }
+
+                // Shuffle questions for variety
+                this.questions = [...filtered].sort(() => Math.random() - 0.5);
+                this.currentIndex = 0;
+                this.score = 0;
+                this.correctCount = 0;
+                this.wrongCount = 0;
+                this.userAnswers = [];
+
+                // Switch UI views
+                document.getElementById('homeScreen').classList.add('hidden');
+                document.getElementById('summaryScreen').classList.add('hidden');
+                document.getElementById('quizScreen').classList.remove('hidden');
+
+                this.loadQuestion();
+            }
+
+            loadQuestion() {
+                this.isAnswered = false;
+                this.timeLeft = 15;
+                document.getElementById('timerDisplay').textContent = `${this.timeLeft}s`;
+                document.getElementById('timerContainer').style.backgroundColor = '#032ea1';
+                document.getElementById('explanationBox').classList.add('hidden');
+                document.getElementById('nextBtn').classList.add('hidden');
+
+                const q = this.questions[this.currentIndex];
+                
+                // Update header info
+                document.getElementById('questionCategoryTag').textContent = q.categoryName;
+                document.getElementById('currentQuestionNum').textContent = this.currentIndex + 1;
+                document.getElementById('totalQuestionsNum').textContent = this.questions.length;
+                document.getElementById('currentScoreDisplay').textContent = `${this.score} ពិន្ទុ`;
+
+                // Update progress bar
+                const progressPct = ((this.currentIndex) / this.questions.length) * 100;
+                document.getElementById('progressBar').style.width = `${progressPct}%`;
+
+                // Render question text
+                document.getElementById('questionText').textContent = `${this.currentIndex + 1}. ${q.question}`;
+
+                // Render options
+                const optionsContainer = document.getElementById('optionsContainer');
+                optionsContainer.innerHTML = '';
+
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `w-full text-left p-4 rounded-xl border border-gray-200 bg-gray-50 hover:bg-blue-50 hover:border-blue-300 font-medium text-gray-800 transition flex items-center justify-between group shadow-sm`;
+                    btn.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-lg bg-white border border-gray-300 flex items-center justify-center font-bold text-cambodia-blue group-hover:bg-cambodia-blue group-hover:text-white transition">${String.fromCharCode(65 + idx)}</span>
+                            <span>${opt}</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-400 group-hover:text-cambodia-blue"></i>
+                    `;
+                    btn.onclick = () => this.selectAnswer(idx);
+                    optionsContainer.appendChild(btn);
+                });
+
+                this.startTimer();
+            }
+
+            startTimer() {
+                clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    document.getElementById('timerDisplay').textContent = `${this.timeLeft}s`;
+
+                    if (this.timeLeft <= 5) {
+                        document.getElementById('timerContainer').style.backgroundColor = '#e31b23';
+                    }
+
+                    if (this.timeLeft <= 0) {
+                        clearInterval(this.timer);
+                        if (!this.isAnswered) {
+                            this.handleTimeout();
+                        }
+                    }
+                }, 1000);
+            }
+
+            handleTimeout() {
+                this.isAnswered = true;
+                const q = this.questions[this.currentIndex];
+                this.wrongCount++;
+
+                // Record answer as timeout (-1)
+                this.userAnswers.push({
+                    question: q.question,
+                    options: q.options,
+                    selected: -1,
+                    correct: q.correct,
+                    explanation: q.explanation,
+                    isCorrect: false
+                });
+
+                this.revealCorrectAnswer(-1);
+            }
+
+            selectAnswer(selectedIndex) {
+                if (this.isAnswered) return;
+                this.isAnswered = true;
+                clearInterval(this.timer);
+
+                const q = this.questions[this.currentIndex];
+                const isCorrect = (selectedIndex === q.correct);
+
+                if (isCorrect) {
+                    this.correctCount++;
+                    // Base points 10 + time bonus
+                    const bonus = this.timeLeft * 2;
+                    this.score += (10 + bonus);
+                } else {
+                    this.wrongCount++;
+                }
+
+                document.getElementById('currentScoreDisplay').textContent = `${this.score} ពិន្ទុ`;
+
+                // Record answer for review
+                this.userAnswers.push({
+                    question: q.question,
+                    options: q.options,
+                    selected: selectedIndex,
+                    correct: q.correct,
+                    explanation: q.explanation,
+                    isCorrect: isCorrect
+                });
+
+                this.revealCorrectAnswer(selectedIndex);
+            }
+
+            revealCorrectAnswer(selectedIndex) {
+                const q = this.questions[this.currentIndex];
+                const optionsContainer = document.getElementById('optionsContainer');
+                const buttons = optionsContainer.getElementsByTagName('button');
+
+                for (let i = 0; i < buttons.length; i++) {
+                    buttons[i].disabled = true;
+                    buttons[i].classList.remove('hover:bg-blue-50', 'hover:border-blue-300', 'bg-gray-50');
+
+                    if (i === q.correct) {
+                        buttons[i].classList.add('bg-green-100', 'border-green-500', 'text-green-900', 'font-bold');
+                        buttons[i].querySelector('span.w-8').classList.replace('bg-white', 'bg-green-600');
+                        buttons[i].querySelector('span.w-8').classList.replace('text-cambodia-blue', 'text-white');
+                    } else if (i === selectedIndex) {
+                        buttons[i].classList.add('bg-red-100', 'border-red-500', 'text-red-900');
+                        buttons[i].querySelector('span.w-8').classList.replace('bg-white', 'bg-red-600');
+                        buttons[i].querySelector('span.w-8').classList.replace('text-cambodia-blue', 'text-white');
+                    } else {
+                        buttons[i].classList.add('opacity-60');
+                    }
+                }
+
+                // Show explanation
+                const expBox = document.getElementById('explanationBox');
+                const expText = document.getElementById('explanationText');
+                expText.textContent = q.explanation;
+                expBox.classList.remove('hidden');
+
+                // Show Next Button
+                const nextBtn = document.getElementById('nextBtn');
+                nextBtn.classList.remove('hidden');
+
+                if (this.currentIndex === this.questions.length - 1) {
+                    nextBtn.innerHTML = `<span>មើលលទ្ធផលសរុប</span> <i class="fa-solid fa-flag-checkered"></i>`;
+                } else {
+                    nextBtn.innerHTML = `<span>សំណួរបន្ទាប់</span> <i class="fa-solid fa-arrow-right"></i>`;
+                }
+            }
+
+            nextQuestion() {
+                this.currentIndex++;
+                if (this.currentIndex < this.questions.length) {
+                    this.loadQuestion();
+                } else {
+                    this.showSummary();
+                }
+            }
+
+            showSummary() {
+                clearInterval(this.timer);
+                this.saveHighScore();
+
+                document.getElementById('quizScreen').classList.add('hidden');
+                document.getElementById('summaryScreen').classList.remove('hidden');
+
+                const total = this.questions.length;
+                const percentage = Math.round((this.correctCount / total) * 100);
+
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalPercentage').textContent = `${percentage}%`;
+                document.getElementById('finalCorrectCount').textContent = this.correctCount;
+                document.getElementById('finalWrongCount').textContent = this.wrongCount;
+
+                // Performance message
+                let msg = "សូមព្យាយាមម្តងទៀតដើម្បីទទួលបានលទ្ធផលកាន់តែប្រសើរ!";
+                if (percentage >= 90) {
+                    msg = "អស្ចារ្យណាស់! អ្នកគឺជាអ្នកជំនាញប្រវត្តិសាស្ត្រ និងវប្បធម៌កម្ពុជាពិតប្រាកដ!";
+                } else if (percentage >= 70) {
+                    msg = "ល្អណាស់! អ្នកมีความយល់ដឹងច្រើនពីប្រទេសកម្ពុជា។";
+                } else if (percentage >= 50) {
+                    msg = "លទ្ធផលគួរសម! អាចព្យាយាមលេងម្តងទៀតដើម្បីបង្កើនចំណេះដឹង។";
+                }
+                document.getElementById('performanceMessage').textContent = msg;
+
+                // Populate Review Container
+                const reviewContainer = document.getElementById('reviewContainer');
+                reviewContainer.innerHTML = '';
+
+                this.userAnswers.forEach((ans, idx) => {
+                    const item = document.createElement('div');
+                    item.className = `p-4 rounded-xl border text-sm space-y-2 ${ans.isCorrect ? 'bg-green-50/50 border-green-200' : 'bg-red-50/50 border-red-200'}`;
+                    
+                    let userChoiceText = ans.selected === -1 ? 'អស់ពេលឆ្លើយ' : ans.options[ans.selected];
+                    let correctChoiceText = ans.options[ans.correct];
+
+                    item.innerHTML = `
+                        <div class="flex items-start justify-between">
+                            <span class="font-bold text-gray-900">សំណួរទី ${idx + 1}: ${ans.question}</span>
+                            <span class="px-2.5 py-0.5 rounded text-xs font-bold ${ans.isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}">
+                                ${ans.isCorrect ? 'ត្រឹមត្រូវ' : 'ខុស'}
+                            </span>
+                        </div>
+                        <div class="text-xs space-y-1 text-gray-600">
+                            <div>ចម្លើយរបស់អ្នក៖ <strong class="${ans.isCorrect ? 'text-green-700' : 'text-red-700'}">${userChoiceText}</strong></div>
+                            ${!ans.isCorrect ? `<div>ចម្លើយដែលត្រឹមត្រូវ៖ <strong class="text-green-700">${correctChoiceText}</strong></div>` : ''}
+                            <div class="text-gray-500 italic mt-1 bg-white p-2 rounded border border-gray-100">ការពន្យល់៖ ${ans.explanation}</div>
+                        </div>
+                    `;
+                    reviewContainer.appendChild(item);
+                });
+            }
+
+            toggleReviewList() {
+                const container = document.getElementById('reviewContainer');
+                const text = document.getElementById('reviewToggleText');
+                const icon = document.getElementById('reviewToggleIcon');
+
+                if (container.classList.contains('hidden')) {
+                    container.classList.remove('hidden');
+                    text.textContent = 'លាក់លម្អិត';
+                    icon.className = 'fa-solid fa-chevron-up';
+                } else {
+                    container.classList.add('hidden');
+                    text.textContent = 'បង្ហាញលម្អិត';
+                    icon.className = 'fa-solid fa-chevron-down';
+                }
+            }
+
+            resetToHome() {
+                clearInterval(this.timer);
+                document.getElementById('quizScreen').classList.add('hidden');
+                document.getElementById('summaryScreen').classList.add('hidden');
+                document.getElementById('homeScreen').classList.remove('hidden');
+            }
+
+            restartSameQuiz() {
+                document.getElementById('summaryScreen').classList.add('hidden');
+                document.getElementById('quizScreen').classList.remove('hidden');
+                this.currentIndex = 0;
+                this.score = 0;
+                this.correctCount = 0;
+                this.wrongCount = 0;
+                this.userAnswers = [];
+                this.loadQuestion();
+            }
+        }
+
+        // Initialize application instance
+        const app = new CambodiaQuizApp();
+    </script>
 </body>
 </html>
