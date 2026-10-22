@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Simple vs Past Continuous Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Kantumruy Pro & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kantumruy Pro', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+            min-height: 100vh;
+        }
+        .khmer-font {
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <header class="bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 text-white p-2.5 rounded-2xl shadow-md shadow-indigo-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900">Past Simple vs Past Continuous</h1>
+                    <p class="text-xs text-slate-500 khmer-font">លំហាត់វេយ្យាករណ៍អង់គ្លេស និងការពន្យល់ជាខ្មែរ</p>
+                </div>
+            </div>
+            <div id="stats-badge" class="hidden items-center space-x-2 bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full text-sm font-semibold border border-indigo-100">
+                <span id="current-score">ពិន្ទុ: 0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6">
+        <div class="w-full max-w-2xl">
+
+            <!-- WELCOME SCREEN -->
+            <div id="welcome-screen" class="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 text-center animate-fade-in">
+                <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 khmer-font">តេស្តសមត្ថភាពវេយ្យាករណ៍ (Random Quiz)</h2>
+                <p class="text-slate-600 mb-6 khmer-font max-w-md mx-auto leading-relaxed">
+                    លំហាត់អន្តរកម្មចំនួន ២០ សំណួរ ដែលនឹងប្តូរលំដាប់ដោយស្វ័យប្រវត្តិ (Randomized) ជារៀងរាល់ពេល ដើម្បីពង្រឹងការយល់ដឹងរវាង <b>Past Simple</b> និង <b>Past Continuous</b>។
+                </p>
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-left mb-8 text-sm text-amber-800 khmer-font">
+                    <p class="font-bold mb-1 flex items-center">
+                        <svg class="w-4 h-4 mr-1 text-amber-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                        គន្លឹះរហ័ស៖
+                    </p>
+                    <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                        <li><b>Past Simple:</b> សកម្មភាពកើតហើយចប់ក្នុងអតីតកាល (V2)</li>
+                        <li><b>Past Continuous:</b> សកម្មភាពកំពុងកើតឡើងនៅពេលណាមួយ (was/were + V-ing)</li>
+                    </ul>
+                </div>
+                <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-0.5 active:translate-y-0 khmer-font text-lg cursor-pointer">
+                    ចាប់ផ្តើមធ្វើលំហាត់ (Start Quiz)
+                </button>
+            </div>
+
+            <!-- QUIZ SCREEN -->
+            <div id="quiz-screen" class="hidden bg-white rounded-3xl shadow-xl border border-slate-100 p-6 sm:p-8 animate-fade-in">
+                <!-- Progress Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <span id="question-counter" class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">សំណួរទី ១ នៃ ២០</span>
+                    <div class="w-32 bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Question Box -->
+                <div class="mb-6">
+                    <h3 id="question-text" class="text-lg sm:text-xl font-bold text-slate-900 mb-2 leading-relaxed"></h3>
+                    <p class="text-xs text-slate-400 khmer-font">ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវបំផុត៖</p>
+                </div>
+
+                <!-- Options Area -->
+                <div id="options-container" class="space-y-3 mb-6">
+                    <!-- Options injected via JS -->
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="feedback-box" class="hidden rounded-2xl p-4 mb-6 khmer-font transition-all">
+                    <div id="feedback-title" class="font-bold text-sm mb-1 flex items-center"></div>
+                    <div id="feedback-explanation" class="text-xs sm:text-sm leading-relaxed"></div>
+                </div>
+
+                <!-- Action Button -->
+                <button id="action-btn" onclick="handleAction()" disabled class="w-full py-3.5 bg-slate-200 text-slate-400 font-bold rounded-2xl transition-all khmer-font cursor-not-allowed">
+                    ពិនិត្យចម្លើយ (Check Answer)
+                </button>
+            </div>
+
+            <!-- RESULT SCREEN -->
+            <div id="result-screen" class="hidden bg-white rounded-3xl shadow-xl border border-slate-100 p-8 text-center animate-fade-in">
+                <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 khmer-font">លទ្ធផលនៃការធ្វើលំហាត់</h2>
+                <p class="text-slate-500 mb-6 khmer-font">អ្នកបានបញ្ចប់សំណួរទាំងអស់ដោយជោគជ័យ!</p>
+                
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6 mb-8 max-w-xs mx-auto">
+                    <div class="text-4xl font-extrabold text-indigo-600 mb-1" id="final-score-display">0 / 20</div>
+                    <div class="text-xs text-slate-500 khmer-font font-medium" id="final-remark">ពិន្ទុរបស់អ្នក</div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button onclick="restartQuiz()" class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all khmer-font cursor-pointer">
+                        ធ្វើលំហាត់ម្ដងទៀត (Play Again)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const originalQuestions = [
+            {
+                question: "She ________ (cook) dinner when the guests arrived.",
+                options: ["cooked", "was cooking", "is cooking", "cooks"],
+                answer: "was cooking",
+                explanation: "ប្រើ Past Continuous (was cooking) ព្រោះវាជាសកម្មភាពកំពុងកើតឡើងយូរ ហើយមានសកម្មភាពភ្ញៀវមកដល់ (arrived - Past Simple) មកកាត់ចន្លោះ។"
+            },
+            {
+                question: "While I ________ (walk) to work, it started to rain.",
+                options: ["walked", "was walking", "walk", "were walking"],
+                answer: "was walking",
+                explanation: "បន្ទាប់ពីឃ្លា 'While' គឺយើងច្រើនប្រើ Past Continuous ដើម្បីបង្ហាញសកម្មភាពកំពុងធ្វើ (was walking)។"
+            },
+            {
+                question: "What ________ you ________ (do) at 8 PM last night?",
+                options: ["did / do", "were / doing", "are / doing", "was / doing"],
+                answer: "were / doing",
+                explanation: "សំណួរដែលមានពេលវេលាច្បាស់លាស់ក្នុងអតីតកាល (at 8 PM last night) គឺប្រើទម្រង់ Past Continuous (Were you doing)។"
+            },
+            {
+                question: "I ________ (see) a great movie last weekend.",
+                options: ["was seeing", "saw", "see", "seen"],
+                answer: "saw",
+                explanation: "សញ្ញាសម្គាល់ 'last weekend' បញ្ជាក់ពីសកម្មភាពដែលបានកើតឡើង និងបញ្ចប់រួចរាល់ទាំងស្រុង ដូច្នេះត្រូវប្រើ Past Simple (saw)។"
+            },
+            {
+                question: "They ________ (play) football at 4 PM yesterday.",
+                options: ["played", "were playing", "are playing", "plays"],
+                answer: "were playing",
+                explanation: "ពេលម៉ោងជាក់លាក់កាលពីម្សិលមិញ (at 4 PM yesterday) បញ្ជាក់ពីសកម្មភាពកំពុងដំណើរការ ដូច្នេះប្រើ Past Continuous។"
+            },
+            {
+                question: "He ________ (lose) his keys while he ________ (run).",
+                options: [
+                    "lost / was running",
+                    "was losing / ran",
+                    "lost / ran",
+                    "was losing / was running"
+                ],
+                answer: "lost / was running",
+                explanation: "បាត់សោរ គឺជាសកម្មភាពកើតឡើងភ្លាមៗ (lost - Past Simple) ខណៈពេលកំពុងរត់ ដែលជាសកម្មភាពកំពុងបន្ត (was running - Past Continuous)។"
+            },
+            {
+                question: "The sun ________ (shine) and the birds ________ (sing) when I woke up.",
+                options: [
+                    "shone / sang",
+                    "was shining / were singing",
+                    "shone / were singing",
+                    "was shining / sang"
+                ],
+                answer: "was shining / were singing",
+                explanation: "សកម្មភាពធម្មជាតិទាំងពីរនេះកំពុងកើតឡើងស្របគ្នាក្នុងអតីតកាល ពេលដែលយើងភ្ញាក់ពីគេង ដូច្នេះប្រើ Past Continuous ទាំងពីរ។"
+            },
+            {
+                question: "I ________ (not watch) TV when you called me.",
+                options: [
+                    "didn't watch",
+                    "wasn't watching",
+                    "weren't watching",
+                    "haven't watched"
+                ],
+                answer: "wasn't watching",
+                explanation: "បដិសេធនៃ Past Continuous សម្រាប់ប្រធាន 'I' គឺ 'wasn't watching' (was not + V-ing)។"
+            },
+            {
+                question: "She ________ (open) the door and looked outside.",
+                options: ["was opening", "opened", "opens", "is opening"],
+                answer: "opened",
+                explanation: "សកម្មភាពតគ្នាជាបន្តបន្ទាប់គ្នាក្នុងអតីតកាល (opened ... and looked) គឺប្រើ Past Simple ទាំងអស់។"
+            },
+            {
+                question: "While the teacher ________ (speak), the students were listening.",
+                options: ["spoke", "was speaking", "is speaking", "speak"],
+                answer: "was speaking",
+                explanation: "ប្រើ Past Continuous (was speaking) ក្រោយពាក្យ While ដើម្បីបង្ហាញសកម្មភាពកំពុងនិយាយយូរ។"
+            },
+            {
+                question: "We ________ (have) dinner when the lights went out.",
+                options: ["had", "were having", "are having", "have"],
+                answer: "were having",
+                explanation: "សកម្មភាពញ៉ាំបាយកំពុងកើតឡើង (were having) ហើយភ្លើងក៏រលត់មកកាត់ចន្លោះ (went out - Past Simple)។"
+            },
+            {
+                question: "He ________ (break) his arm when he was playing basketball.",
+                options: ["broke", "was breaking", "breaks", "broken"],
+                answer: "broke",
+                explanation: "ការបាក់ដៃកើតឡើងភ្លាមៗជាព្រឹត្តិការណ៍រំខាន ដូច្នេះប្រើ Past Simple (broke)។"
+            },
+            {
+                question: "________ it ________ (rain) when you left home?",
+                options: ["Did / rain", "Was / raining", "Were / raining", "Is / raining"],
+                answer: "Was / raining",
+                explanation: "សំណួរអំពីសកម្មភាពកំពុងកើតឡើងនៅពេលអ្នកចេញពីផ្ទះ ប្រើទម្រង់ Was/Were + Subject + V-ing។"
+            },
+            {
+                question: "I ________ (meet) my best friend while I was shopping.",
+                options: ["was meeting", "meet", "met", "meets"],
+                answer: "met",
+                explanation: "ការជួបមិត្តភក្តិគឺជាសកម្មភាពកើតឡើងភ្លាមៗកាត់ចន្លោះ (met - Past Simple) ពេលកំពុងទិញឥវ៉ាន់។"
+            },
+            {
+                question: "Ann ________ (read) a book while her brother ________ (play) video games.",
+                options: [
+                    "read / played",
+                    "was reading / was playing",
+                    "read / was playing",
+                    "was reading / played"
+                ],
+                answer: "was reading / was playing",
+                explanation: "សកម្មភាពពីរផ្សេងគ្នា កំពុងកើតឡើងស្របគ្នាគ្នាក្នុងពេលតែមួយក្នុងអតីតកាល (ប្រើ Past Continuous ទាំងពីរ)។"
+            },
+            {
+                question: "When I arrived at the station, the train ________ (leave).",
+                options: ["left", "was leaving", "leaves", "has left"],
+                answer: "was leaving",
+                explanation: "រថភ្លើងកំពុងតែចេញដំណើរ (was leaving) នៅពេលដែលខ្ញុំបានទៅដល់ស្ថានីយ។"
+            },
+            {
+                question: "They ________ (not go) to school yesterday because it was a holiday.",
+                options: ["weren't going", "didn't go", "don't go", "haven't gone"],
+                answer: "didn't go",
+                explanation: "សកម្មភាពទូទៅក្នុងអតីតកាលដែលមានពាក្យ 'yesterday' និងបដិសេធ គឺប្រើ 'didn't go' (Past Simple)។"
+            },
+            {
+                question: "What ________ you ________ (do) when the accident happened?",
+                options: ["did / do", "were / doing", "are / doing", "was / doing"],
+                answer: "were / doing",
+                explanation: "សំណួរចង់ដឹងពីសកម្មភាពកំពុងធ្វើពេលគ្រោះថ្នាក់កើតឡើង ប្រើ Past Continuous (were doing)។"
+            },
+            {
+                question: "The phone ________ (ring) while I was taking a shower.",
+                options: ["rang", "was ringing", "is ringing", "ring"],
+                answer: "rang",
+                explanation: "ទូរសព្ទរោទ៍ឡើងភ្លាមៗ (rang - Past Simple) មកកាត់ចន្លោះពេលកំពុងងូតទឹក។"
+            },
+            {
+                question: "As I ________ (walk) down the street, I saw a stray cat.",
+                options: ["walked", "was walking", "am walking", "walk"],
+                answer: "was walking",
+                explanation: "'As' មានន័យស្មើនឹង 'While' គឺប្រើជាមួយ Past Continuous ដើម្បីបង្ហាញសកម្មភាពកំពុងដើរ។"
+            }
+        ];
+
+        let activeQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+        let isAnswerChecked = false;
+
+        // Fisher-Yates shuffle algorithm to randomize questions and their options
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function startQuiz() {
+            // Randomize questions and their options every time the quiz starts
+            activeQuestions = shuffleArray(originalQuestions).map(q => ({
+                ...q,
+                options: shuffleArray(q.options)
+            }));
+
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('stats-badge').classList.remove('hidden');
+            document.getElementById('stats-badge').classList.add('flex');
+            
+            currentIndex = 0;
+            score = 0;
+            updateScoreDisplay();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            isAnswerChecked = false;
+            selectedOption = null;
+            const q = activeQuestions[currentIndex];
+
+            // Update counter and progress bar
+            document.getElementById('question-counter').innerText = `សំណួរទី ${currentIndex + 1} នៃ ${activeQuestions.length}`;
+            const progressPct = (currentIndex / activeQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+
+            // Render question text
+            document.getElementById('question-text').innerText = q.question;
+
+            // Render options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-2xl border-2 border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all font-medium text-slate-700 flex items-center justify-between group cursor-pointer";
+                btn.innerHTML = `
+                    <span>${opt}</span>
+                    <span class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center text-xs group-hover:border-indigo-500"></span>
+                `;
+                btn.onclick = () => selectOption(opt, btn);
+                container.appendChild(btn);
+            });
+
+            // Hide feedback & reset button
+            const feedbackBox = document.getElementById('feedback-box');
+            feedbackBox.classList.add('hidden');
+
+            const actionBtn = document.getElementById('action-btn');
+            actionBtn.innerText = "ពិនិត្យចម្លើយ (Check Answer)";
+            actionBtn.disabled = true;
+            actionBtn.className = "w-full py-3.5 bg-slate-200 text-slate-400 font-bold rounded-2xl transition-all khmer-font cursor-not-allowed";
+        }
+
+        function selectOption(opt, element) {
+            if (isAnswerChecked) return;
+
+            selectedOption = opt;
+            
+            // Highlight selected button
+            const buttons = document.getElementById('options-container').children;
+            for (let b of buttons) {
+                b.classList.remove('border-indigo-600', 'bg-indigo-50', 'text-indigo-900');
+                b.classList.add('border-slate-100', 'bg-slate-50', 'text-slate-700');
+                b.querySelector('span:last-child').innerHTML = '';
+            }
+
+            element.classList.remove('border-slate-100', 'bg-slate-50', 'text-slate-700');
+            element.classList.add('border-indigo-600', 'bg-indigo-50', 'text-indigo-900');
+            element.querySelector('span:last-child').innerHTML = '✓';
+
+            // Enable action button
+            const actionBtn = document.getElementById('action-btn');
+            actionBtn.disabled = false;
+            actionBtn.className = "w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all khmer-font cursor-pointer";
+        }
+
+        function handleAction() {
+            const actionBtn = document.getElementById('action-btn');
+            
+            if (!isAnswerChecked) {
+                isAnswerChecked = true;
+                const q = activeQuestions[currentIndex];
+                const isCorrect = selectedOption === q.answer;
+
+                if (isCorrect) {
+                    score += 1;
+                    updateScoreDisplay();
+                }
+
+                // Show feedback box
+                const feedbackBox = document.getElementById('feedback-box');
+                feedbackBox.classList.remove('hidden');
+                
+                const feedbackTitle = document.getElementById('feedback-title');
+                const feedbackExplanation = document.getElementById('feedback-explanation');
+
+                if (isCorrect) {
+                    feedbackBox.className = "rounded-2xl p-4 mb-6 khmer-font bg-emerald-50 border border-emerald-200 text-emerald-900";
+                    feedbackTitle.innerHTML = `<svg class="w-5 h-5 mr-1.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> ចម្លើយត្រឹមត្រូវ! (Correct!)`;
+                } else {
+                    feedbackBox.className = "rounded-2xl p-4 mb-6 khmer-font bg-rose-50 border border-rose-200 text-rose-900";
+                    feedbackTitle.innerHTML = `<svg class="w-5 h-5 mr-1.5 text-rose-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg> ចម្លើយមិនត្រឹមត្រូវទេ! ចម្លើយដែលត្រូវគឺ៖ <b>${q.answer}</b>`;
+                }
+
+                feedbackExplanation.innerHTML = `<b>ការពន្យល់៖</b> ${q.explanation}`;
+
+                // Update button text for next step
+                if (currentIndex < activeQuestions.length - 1) {
+                    actionBtn.innerText = "សំណួរបន្ទាប់ (Next Question)";
+                } else {
+                    actionBtn.innerText = "មើលលទ្ធផលសរុប (View Results)";
+                }
+
+            } else {
+                currentIndex++;
+                if (currentIndex < activeQuestions.length) {
+                    loadQuestion();
+                } else {
+                    showResultScreen();
+                }
+            }
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('current-score').innerText = `ពិន្ទុ: ${score}`;
+        }
+
+        function showResultScreen() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('stats-badge').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('final-score-display').innerText = `${score} / ${activeQuestions.length}`;
+            
+            const remark = document.getElementById('final-remark');
+            const percentage = (score / activeQuestions.length) * 100;
+            if (percentage >= 80) {
+                remark.innerText = "ល្អប្រសើរខ្លាំងណាស់! (Excellent!)";
+            } else if (percentage >= 50) {
+                remark.innerText = "ធ្វើបានល្អកម្រិតមធ្យម! (Good Job!)";
+            } else {
+                remark.innerText = "គួរព្យាយាមអានមេរៀនបន្ថែមទៀត! (Keep Practicing!)";
+            }
+        }
+
+        function restartQuiz() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
